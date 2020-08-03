@@ -45,9 +45,10 @@
 #' @export
 ggseg3d <- function(.data=NULL, atlas="dk_3d",
                     surface = "LCBC", hemisphere = c("right","subcort"),
-                    label = "region", text = NULL, colour = "colour",
+                    label = "region", text = NULL, colour = "colour", 
                     palette = NULL, na.colour = "darkgrey", na.alpha = 1,
-                    show.legend = TRUE, options.legend = NULL) {
+                    show.legend = TRUE, options.legend = NULL,
+                    min.colour=NULL, max.colour=NULL) {
 
 
   # Grab the atlas, even if it has been provided as character string
@@ -63,6 +64,8 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
   pal.colours <- get_palette(palette)
 
   # If colour column is numeric, calculate the gradient
+  
+ if(is.null(max.colour) &  is.null(min.colour)){
   if(is.numeric(unlist(atlas3d[,colour]))){
 
     if(is.null(names(palette))){
@@ -70,7 +73,21 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
                                 max(atlas3d[,colour], na.rm = TRUE),
                                 length.out = nrow(pal.colours))
     }
+}
+    
+     if(!is.null(max.colour) | !is.null(min.colour)){
+  if(is.numeric(unlist(atlas3d[,colour]))){
 
+    if(is.null(names(palette))){
+      pal.colours$values <- seq(min.colour,
+                                max.colour,
+                                length.out = nrow(pal.colours))
+    }
+}
+    
+    
+    
+    
     atlas3d$new_col = gradient_n_pal(pal.colours$orig, pal.colours$values,"Lab")(
       unlist(atlas3d[,colour]))
     fill = "new_col"
