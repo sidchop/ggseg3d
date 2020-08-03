@@ -65,17 +65,17 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
 
   # If colour column is numeric, calculate the gradient
   
- if(is.null(max.colour) &  is.null(min.colour)){
-  if(is.numeric(unlist(atlas3d[,colour]))){
-
-    if(is.null(names(palette))){
-      pal.colours$values <- seq(min(atlas3d[,colour], na.rm = TRUE),
-                                max(atlas3d[,colour], na.rm = TRUE),
-                                length.out = nrow(pal.colours))
-    }
-}
+# if(is.null(max.colour) &  is.null(min.colour)){
+#  if(is.numeric(unlist(atlas3d[,colour]))){
+#
+#    if(is.null(names(palette))){
+#      pal.colours$values <- seq(min(atlas3d[,colour], na.rm = TRUE),
+#                                max(atlas3d[,colour], na.rm = TRUE),
+#                                length.out = nrow(pal.colours))
+#    }
+#}
     
-     if(!is.null(max.colour) | !is.null(min.colour)){
+ #    if(!is.null(max.colour) | !is.null(min.colour)){
   if(is.numeric(unlist(atlas3d[,colour]))){
 
     if(is.null(names(palette))){
@@ -83,7 +83,7 @@ ggseg3d <- function(.data=NULL, atlas="dk_3d",
                                 max.colour,
                                 length.out = nrow(pal.colours))
     }
-}
+#}
     
     
     
